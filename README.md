@@ -106,3 +106,18 @@ MATLAB Workspace:           MATLAB Workspace:                  MATLAB Workspace:
     - P-I Plot (figure & .png)
     - MPP details (Command Window)
 ``````    
+The typical workflow for this project involves a sequence of MATLAB script executions and Simulink model simulation. This diagram illustrates the flow of data and control.
+
+```mermaid
+graph TD
+    A[Start] --> B(Run set_fc_params.m);
+    B --> C{Parameters Loaded in MATLAB Workspace};
+    C --> D[Open fuel_cell_vi_model.slx];
+    D --> E(Run Simulink Model);
+    E --> F{Simulation Output 'out' Object in Workspace};
+    F -- Contains fc_current, fc_voltage, tout --> G[Run analyze_fc_vi.m];
+    G --> H{Extract Data from 'out' Object};
+    H --> I(Calculate Power & MPP);
+    I --> J[Generate V-I & P-I Plots];
+    J --> K(Display Plots & Save to results/);
+    K --> L[End];
